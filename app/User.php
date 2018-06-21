@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -11,7 +12,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
-    use Authenticatable, Authorizable;
+    use SoftDeletes, Authenticatable, Authorizable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'surname', 'email', 'phone'
     ];
 
     /**
@@ -28,7 +29,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'deleted_at'
     ];
 
     /**

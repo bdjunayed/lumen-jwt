@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\JWTAuth;
 class AuthController extends Controller
 {
@@ -50,6 +51,12 @@ class AuthController extends Controller
 
         }
 
-        return response()->json(compact('token'));
+
+
+//        return response()->json(compact('token'));
+
+        $response = compact('token');
+        $response['user'] = Auth::user();
+        return response()->json($response);
     }
 }

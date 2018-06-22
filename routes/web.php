@@ -17,6 +17,8 @@ $router->get('/', function () use ($router) {
 
 $router->post('/auth/login', 'AuthController@postLogin');
 
+$router->get('user', 'UserController@index');
+
 //$router->group(['middleware' => 'jwt-auth'], function() use ($router)
 $router->group(['middleware' => 'auth:api'], function() use ($router)
 {

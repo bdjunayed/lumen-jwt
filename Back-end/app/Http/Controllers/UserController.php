@@ -25,27 +25,12 @@ class UserController extends BaseController
     }
 
     public function index() {
-//        return "hi";
-
-//        $fractal = new Manager();
-//        return $fractal->createData(new Collection(User::all()))->toJson();
-
-
         $paginator = User::paginate(3);
-        //dd($paginator);
-        $users = $paginator->getCollection();
-        //dd($users);
+        $users = $paginator->getCollection();  // extra line
         $resource = new Collection($users, new UserTransformer);
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator)); //paginator
         return $this->fractal->createData($resource)->toArray();
 
-
-
-
-//        return $this->response->paginator($users, new UserTransformer());
-
-//   return new Fractal\Resource\Collection($users, new UserTransformer);
-
-        //return $this->collection(User::all(), new UserTransformer());
+//        return $this->buildCollectionResponse($users, new \App\Http\Transformers\UserTransformer);
     }
 }
